@@ -1,0 +1,51 @@
+config:
+  target: "https://postman-echo.com"
+
+  phases:
+    - duration: 20
+      arrivalRate: 1
+      rampTo: 3
+      name: "Warm up load test"
+
+    - duration: 20
+      arrivalRate: 3
+      name: "Stable load test"
+
+  payload:
+    path: "./post-data.csv"
+    fields:
+      - "title"
+      - "completed"
+      - "userId"
+    order: random
+    skipHeader: true
+
+  plugins:
+    ensure:
+      thresholds:
+        - http.response_time.p95: 2000
+        - http.response_time.p99: 3000
+        - http.response_time.max: 5000
+
+scenarios:
+  - name: "GET and POST API performance test"
+    flow:
+      - get:
+          url: "/get"
+          qs:
+            course: "QA"
+            tool: "Artillery"
+          headers:
+            User-Agent: "Artillery Performance Test"
+            X-Custom-Header: "GoIT Homework"
+
+      - post:
+          url: "/post"
+          headers:
+            Content-Type: "application/json"
+            User-Agent: "Artillery Performance Test"
+            X-Custom-Header: "GoIT Homework"
+          json:
+            title: "{{ title }}"
+            completed: "{{ completed }}"
+            userId: "{{ userId }}"
