@@ -38,7 +38,7 @@ class Login {
         .should('be.visible');
     
     }
-}
+    
   }
   
   export default Login;
