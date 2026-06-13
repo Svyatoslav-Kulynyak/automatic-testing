@@ -30,9 +30,16 @@ class Login {
     }
   
     checkLoginPageOpened() {
-      cy.contains('Login', { timeout: 15000 })
-        .should('be.visible');
-    }
+
+  cy.url({ timeout: 15000 }).should('include', '/account/login');
+
+  cy.get('#user_email', { timeout: 15000 })
+    .should('be.visible');
+
+  cy.get('#user_password', { timeout: 15000 })
+    .should('be.visible');
+
+}
   }
   
   export default Login;
