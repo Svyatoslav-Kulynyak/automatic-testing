@@ -1,5 +1,9 @@
 class Login {
 
+  visit() {
+    cy.visit('https://www.edu.goit.global/account/login');
+  }
+
   fillEmail(email) {
     cy.get('#user_email', { timeout: 10000 })
       .should('be.visible')
@@ -26,15 +30,13 @@ class Login {
     this.clickLoginButton();
   }
 
-checkLoginPageOpened() {
+  checkLoginPageOpened() {
+    cy.url({ timeout: 15000 })
+      .should('include', '/homepage');
 
-  cy.url({ timeout: 15000 })
-    .should('include', '/homepage');
-
-  cy.contains('button', 'Log in', { timeout: 15000 })
-    .should('be.visible');
-
-}
+    cy.contains('button', 'Log in', { timeout: 15000 })
+      .should('be.visible');
+  }
 
 }
 
