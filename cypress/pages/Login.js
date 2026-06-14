@@ -26,13 +26,15 @@ class Login {
     this.clickLoginButton();
   }
 
-  checkLoginPageOpened() {
-    cy.url({ timeout: 15000 })
-      .should('include', '/homepage');
+checkLoginPageOpened() {
 
-    cy.contains('button', 'Log in', { timeout: 15000 })
-      .should('be.visible');
-  }
+  cy.url({ timeout: 15000 })
+    .should('include', '/homepage');
+
+  cy.contains('button', 'Log in', { timeout: 15000 })
+    .should('be.visible');
+
+}
 
 }
 
